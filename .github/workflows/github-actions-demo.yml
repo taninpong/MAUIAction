@@ -76,7 +76,7 @@ jobs:
         uses: actions/upload-artifact@v2.3.1
         with:
           name: mauibeach-windows-ci-build
-          path: MAUIAction/MAUIAction/bin/Release/net7.0-windows10.0.19041.0/win10-x64/AppPackages/MauiBeach*/MauiBeach*.msix
+          path: MAUIAction/MAUIAction/bin/Release/net7.0-windows10.0.19041.0/win10-x64/AppPackages/MAUIAction*/MAUIAction*.msix
 
 # MAUI iOS Build
   build-ios:
