@@ -2,13 +2,13 @@ name: CI Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ devmaster ]
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
   pull_request:
-    branches: [ master ]
+    branches: [ devmaster ]
   workflow_dispatch:
 
 permissions:
