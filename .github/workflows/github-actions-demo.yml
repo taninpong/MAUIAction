@@ -72,10 +72,10 @@ jobs:
           dotnet workload install maui --ignore-failed-sources
 
       - name: Restore Dependencies
-        run: dotnet restore MAUIAction/MAUIAction.csproj
+        run: dotnet restore MAUIAction/MAUIAction/MAUIAction.csproj
 
       - name: Build MAUI Windows
-        run: msbuild MAUIAction/MAUIAction.csproj -r -p:Configuration=Release -p:RestorePackages=false -p:TargetFramework=net7.0-windows10.0.19041 /p:GenerateAppxPackageOnBuild=true
+        run: msbuild MAUIAction/MAUIAction/MAUIAction.csproj -r -p:Configuration=Release -p:RestorePackages=false -p:TargetFramework=net7.0-windows10.0.19041 /p:GenerateAppxPackageOnBuild=true
 
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v2.3.1
@@ -103,10 +103,10 @@ jobs:
           dotnet workload install maui --ignore-failed-sources
 
       - name: Restore Dependencies
-        run: dotnet restore MAUIAction/MAUIAction.csproj
+        run: dotnet restore MAUIAction/MAUIAction/MAUIAction.csproj
 
       - name: Build MAUI iOS
-        run: dotnet build MAUIAction/MAUIAction.csproj -c Release -f net7.0-ios --no-restore
+        run: dotnet build MAUIAction/MAUIAction/MAUIAction.csproj -c Release -f net7.0-ios --no-restore
 
       - name: Upload iOS Artifact
         uses: actions/upload-artifact@v2.3.1
