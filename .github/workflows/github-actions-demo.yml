@@ -40,46 +40,46 @@ env:
           dotnet workload install maui --ignore-failed-sources
 
       - name: Restore Dependencies
-        run: dotnet restore src/MAUIAction/MAUIAction.csproj
+        run: dotnet restore MAUIAction/MAUIAction.csproj
 
       - name: Build MAUI Android
-        run: dotnet build src/MAUIAction/MAUIAction.csproj -c Release -f net7.0-android --no-restore
+        run: dotnet build MAUIAction/MAUIAction.csproj -c Release -f net7.0-android --no-restore
 
       - name: Upload Android Artifact
         uses: actions/upload-artifact@v2.3.1
         with:
           name: android-ci-build
-          path: src/MAUIAction/bin/Release/net7.0-android/*Signed.a*
-  build-windows:
-    runs-on: windows-2022
-    name: Windows Build
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+          path: MAUIAction/bin/Release/net7.0-android/*Signed.a*
+  # build-windows:
+  #   runs-on: windows-2022
+  #   name: Windows Build
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
 
-      - name: Setup .NET 6
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 6.0.x
-          include-prerelease: true
+  #     - name: Setup .NET 6
+  #       uses: actions/setup-dotnet@v1
+  #       with:
+  #         dotnet-version: 6.0.x
+  #         include-prerelease: true
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1.1
-        with:
-          vs-prerelease: true
+  #     - name: Setup MSBuild
+  #       uses: microsoft/setup-msbuild@v1.1
+  #       with:
+  #         vs-prerelease: true
 
-      - name: Install MAUI Workloads
-        run: |
-          dotnet workload install maui --ignore-failed-sources
+  #     - name: Install MAUI Workloads
+  #       run: |
+  #         dotnet workload install maui --ignore-failed-sources
 
-      - name: Restore Dependencies
-        run: dotnet restore src/MAUIAction/MAUIAction.csproj
+  #     - name: Restore Dependencies
+  #       run: dotnet restore src/MAUIAction/MAUIAction.csproj
 
-      - name: Build MAUI Windows
-        run: msbuild src/MAUIAction/MAUIAction.csproj -r -p:Configuration=Release -p:RestorePackages=false -p:TargetFramework=net6.0-windows10.0.19041 /p:GenerateAppxPackageOnBuild=true
+  #     - name: Build MAUI Windows
+  #       run: msbuild src/MAUIAction/MAUIAction.csproj -r -p:Configuration=Release -p:RestorePackages=false -p:TargetFramework=net6.0-windows10.0.19041 /p:GenerateAppxPackageOnBuild=true
 
-      - name: Upload Windows Artifact
-        uses: actions/upload-artifact@v2.3.1
-        with:
-          name: windows-ci-build
-          path: src/MAUIAction/bin/Release/net6.0-windows*/**/MAUIAction*.msix
+  #     - name: Upload Windows Artifact
+  #       uses: actions/upload-artifact@v2.3.1
+  #       with:
+  #         name: windows-ci-build
+  #         path: src/MAUIAction/bin/Release/net6.0-windows*/**/MAUIAction*.msix
