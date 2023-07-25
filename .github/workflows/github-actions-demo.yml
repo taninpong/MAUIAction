@@ -44,10 +44,10 @@ jobs:
           dotnet workload install maui --ignore-failed-sources
 
       - name: Restore Dependencies
-        run: dotnet restore MAUIAction/MAUIAction/uiPin.csproj
+        run: dotnet restore MAUIAction/MAUIAction/MAUIAction.csproj
 
       - name: Build MAUI Android
-        run: dotnet build MAUIAction/MAUIAction/uiPin.csproj -c Release -f net7.0-android --no-restore
+        run: dotnet build MAUIAction/MAUIAction/MAUIAction.csproj -c Release -f net7.0-android --no-restore
 
       - name: Upload Android Artifact
         uses: actions/upload-artifact@v2.3.1
