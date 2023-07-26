@@ -51,9 +51,6 @@ jobs:
         run: npm install -g appcenter-cli
       - name: Setup App Center CLI
         run: appcenter login --token 400c453781bce76fd84e0ebe74b71585d212f29a
-      - name: Get Status AppCenter
-        run: appcenter --version 
-             appcenter distribute release --help
       - name: Deploy to App Center
         run:
           appcenter distribute release --app steering/MAUIAction
