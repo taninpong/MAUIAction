@@ -46,11 +46,11 @@ jobs:
         uses: actions/upload-artifact@v2.3.1
         with:
           name: mauibeach-android-ci-build
-          path: MAUIAction/MAUIAction/bin/Release/net7.0-android/*Signed.a* d5fe3b2d78e03aab9f3e88ce34aed7e1b4af3507
+          path: MAUIAction/MAUIAction/bin/Release/net7.0-android/*Signed.a* 
       - name: Setup App Center CLI
         run: npm install -g appcenter-cli
       - name: Deploy to App Center
-        run: appcenter distribute release --silent --file ./MAUIAction/MAUIAction.Android/bin/Release/com.thes.maui.client.mauiaction-Signed.apk --app DEV Demo/MAUIAction --group Collaborators --token ${{ secrets.APP_CENTER_API_TOKEN }}
+        run: appcenter distribute release --silent --file ./MAUIAction/MAUIAction.Android/bin/Release/thes.maui.client-Signed.apk --app DEV Demo/MAUIAction --group Collaborators --token ${{ secrets.APP_CENTER_API_TOKEN }}
         # env:
         #   API_TOKEN: ${{ secrets.APP_CENTER_API_TOKEN }}
 

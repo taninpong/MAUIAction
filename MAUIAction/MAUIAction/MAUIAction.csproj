@@ -16,7 +16,7 @@
     <ApplicationTitle>MAUIAction</ApplicationTitle>
 
     <!-- App Identifier -->
-    <ApplicationId>com.companyname.mauiaction</ApplicationId>
+    <ApplicationId>thes.maui.client</ApplicationId>
     <ApplicationIdGuid>2EF6162E-0601-4C31-9137-3E2E2D2A2DC9</ApplicationIdGuid>
 
     <!-- Versions -->
