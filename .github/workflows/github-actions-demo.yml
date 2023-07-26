@@ -51,9 +51,12 @@ jobs:
         run: npm install -g appcenter-cli
       - name: Setup App Center CLI
         run: appcenter login --token 400c453781bce76fd84e0ebe74b71585d212f29a
+      - name: Get Status AppCenter
+        run: appcenter --version 
+             appcenter distribute release --help
       - name: Deploy to App Center
         run:
-          appcenter distribute release --app 381e1628-637b-41d4-8e08-7e0ef3fb1832
+          appcenter distribute release --app MAUIAction
           --file MAUIAction/MAUIAction/bin/Release/net7.0-android/thes.maui.client-Signed.apk
           --token ${{ secrets.APP_CENTER_API_TOKEN }} --group Owner
 
