@@ -52,8 +52,8 @@ jobs:
       - name: Setup App Center CLI
         run: appcenter apps list
       - name: Deploy to App Center
-        run: appcenter distribute release --app 381e1628-637b-41d4-8e08-7e0ef3fb1832
-          --file MAUIAction/MAUIAction/bin/Release/net7.0-android/thes.maui.client-Signed.a*
+        run: appcenter distribute release --app Dev-Demo/MAUIAction
+          --file MAUIAction/MAUIAction/bin/Release/net7.0-android/thes.maui.client-Signed.apk
           --token ${{ secrets.APP_CENTER_API_TOKEN_APP }} --group Owner
 
         # run: appcenter distribute release --silent --file MAUIAction/MAUIAction/MAUIAction.Android/bin/Release/thes.maui.client-Signed.apk --app DEV Demo/MAUIAction --group Collaborators --token ${{ secrets.APP_CENTER_API_TOKEN }}
