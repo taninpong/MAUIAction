@@ -21,32 +21,38 @@ env:
 
 jobs:
   # MAUI Android Build
-  # build-android:
-  #   runs-on: windows-2022
-  #   name: Android Build
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
+  build-android:
+    runs-on: windows-2022
+    name: Android Build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-  #     - name: Setup .NET 7
-  #       uses: actions/setup-dotnet@v1
-  #       with:
-  #         dotnet-version: 7.0.x
+      - name: Setup .NET 7
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 7.0.x
 
-  #     - name: Install MAUI Workload
-  #       run: dotnet workload install maui --ignore-failed-sources
+      - name: Install MAUI Workload
+        run: dotnet workload install maui --ignore-failed-sources
 
-  #     - name: Restore Dependencies
-  #       run: dotnet restore MAUIAction/MAUIAction/MAUIAction.csproj
+      - name: Restore Dependencies
+        run: dotnet restore MAUIAction/MAUIAction/MAUIAction.csproj
 
-  #     - name: Build MAUI Android
-  #       run: dotnet publish MAUIAction/MAUIAction/MAUIAction.csproj -c Release -f net7.0-android --no-restore
+      - name: Build MAUI Android
+        run: dotnet publish MAUIAction/MAUIAction/MAUIAction.csproj -c Release -f net7.0-android --no-restore
 
-  #     - name: Upload Android Artifact
-  #       uses: actions/upload-artifact@v2.3.1
-  #       with:
-  #         name: mauibeach-android-ci-build
-  #         path: MAUIAction/MAUIAction/bin/Release/net7.0-android/*Signed.a*
+      - name: Upload Android Artifact
+        uses: actions/upload-artifact@v2.3.1
+        with:
+          name: mauibeach-android-ci-build
+          path: MAUIAction/MAUIAction/bin/Release/net7.0-android/*Signed.a* d5fe3b2d78e03aab9f3e88ce34aed7e1b4af3507
+      - name: Setup App Center CLI
+        run: npm install -g appcenter-cli
+      - name: Deploy to App Center
+        run: appcenter distribute release --silent --file ./MAUIAction/MAUIAction.Android/bin/Release/com.thes.maui.client.mauiaction-Signed.apk --app DEV Demo/MAUIAction --group Collaborators --token ${{ secrets.APP_CENTER_API_TOKEN }}
+        # env:
+        #   API_TOKEN: ${{ secrets.APP_CENTER_API_TOKEN }}
 
   # MAUI Windows Build
   # build-windows:
@@ -84,10 +90,10 @@ jobs:
   #         path: MAUIAction/MAUIAction/bin/Release/net7.0-windows*/**/MAUIAction*.msix
 
   # MAUI iOS Build
-  build-ios:
-    runs-on: macos-13
-    name: iOS Build
-    steps:
+  # build-ios:
+    # runs-on: macos-13
+    # name: iOS Build
+    # steps:
       - name: Checkout
         uses: actions/checkout@v2
 
