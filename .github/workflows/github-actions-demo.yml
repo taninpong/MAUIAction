@@ -33,8 +33,8 @@ jobs:
         with:
           dotnet-version: 7.0.x
 
-      # - name: Install MAUI Workload
-      #   run: dotnet workload install maui --ignore-failed-sources
+      - name: Install MAUI Workload
+        run: dotnet workload install maui --ignore-failed-sources
 
       - name: Restore Dependencies
         run: dotnet restore MAUIAction/MAUIAction/MAUIAction.csproj
