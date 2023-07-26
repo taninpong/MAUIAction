@@ -52,7 +52,7 @@ jobs:
       - name: Deploy to App Center
         run: appcenter distribute release --app MAUIAction
           --file ./MAUIAction/MAUIAction/bin/Release/net7.0-android/thes.maui.client-Signed.a*
-          --token ${{ secrets.APP_CENTER_API_TOKEN }} --group Collaborators
+          --token ${{ secrets.APP_CENTER_API_TOKEN }} --group Owner
 
         # run: appcenter distribute release --silent --file MAUIAction/MAUIAction/MAUIAction.Android/bin/Release/thes.maui.client-Signed.apk --app DEV Demo/MAUIAction --group Collaborators --token ${{ secrets.APP_CENTER_API_TOKEN }}
         # env:
