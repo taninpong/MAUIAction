@@ -85,7 +85,7 @@ jobs:
 
   # MAUI iOS Build
   build-ios:
-    runs-on: macos-11
+    runs-on: macos-13
     name: iOS Build
     steps:
       - name: Checkout
