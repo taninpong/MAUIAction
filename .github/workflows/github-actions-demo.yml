@@ -21,79 +21,44 @@ env:
 
 jobs:
   # MAUI Android Build
-  build-android:
-    runs-on: windows-2022
-    name: Android Build
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+  # build-android:
+  #   runs-on: windows-2022
+  #   name: Android Build
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
 
-      - name: Setup .NET 7
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 7.0.x
-      - name: github.run_number
-        run: ${{ github.run_number }}
-      - name: Install MAUI Workload ${{ github.run_number }}
-        run: dotnet workload install maui --ignore-failed-sources
+  #     - name: Setup .NET 7
+  #       uses: actions/setup-dotnet@v1
+  #       with:
+  #         dotnet-version: 7.0.x
+  #     - name: github.run_number
+  #       run: ${{ github.run_number }}
+  #     - name: Install MAUI Workload ${{ github.run_number }}
+  #       run: dotnet workload install maui --ignore-failed-sources
 
-      - name: Restore Dependencies
-        run: dotnet restore MAUIAction/MAUIAction/MAUIAction.csproj
+  #     - name: Restore Dependencies
+  #       run: dotnet restore MAUIAction/MAUIAction/MAUIAction.csproj
 
-      - name: Build MAUI Android
-        run: dotnet publish MAUIAction/MAUIAction/MAUIAction.csproj -c Release -f net7.0-android --no-restore
+  #     - name: Build MAUI Android
+  #       run: dotnet publish MAUIAction/MAUIAction/MAUIAction.csproj -c Release -f net7.0-android --no-restore
 
-      - name: Upload Android Artifact
-        uses: actions/upload-artifact@v2.3.1
-        with:
-          name: MAUIAction
-          path: MAUIAction/MAUIAction/bin/Release/net7.0-android/*Signed.a*
-      - name: Setup App Center CLI
-        run: npm install -g appcenter-cli
-      - name: Deploy to App Center
-        run: appcenter distribute release --app Dev-Demo/MAUIAction
-          --file MAUIAction/MAUIAction/bin/Release/net7.0-android/thes.maui.client-Signed.apk
-          --token ${{ secrets.APP_CENTER_API_TOKEN_APP }} --group Owner
+  #     - name: Upload Android Artifact
+  #       uses: actions/upload-artifact@v2.3.1
+  #       with:
+  #         name: MAUIAction
+  #         path: MAUIAction/MAUIAction/bin/Release/net7.0-android/*Signed.a*
+  #     - name: Setup App Center CLI
+  #       run: npm install -g appcenter-cli
+  #     - name: Deploy to App Center
+  #       run: appcenter distribute release --app Dev-Demo/MAUIAction
+  #         --file MAUIAction/MAUIAction/bin/Release/net7.0-android/thes.maui.client-Signed.apk
+  #         --token ${{ secrets.APP_CENTER_API_TOKEN_APP }} --group Owner
 
-    # MAUI Windows Build
-    # build-windows:
-    #   runs-on: windows-2022
-    #   name: Windows Build
-    #   steps:
-    #     - name: Checkout
-    #       uses: actions/checkout@v2
-
-    #     - name: Setup .NET 7
-    #       uses: actions/setup-dotnet@v1
-    #       with:
-    #         dotnet-version: 7.0.x
-    #         include-prerelease: true
-
-    #     - name: Setup MSBuild
-    #       uses: microsoft/setup-msbuild@v1.1
-    #       with:
-    #         vs-prerelease: true
-
-    #     - name: Install MAUI Workloads
-    #       run: |
-    #         dotnet workload install maui --ignore-failed-sources
-
-    #     - name: Restore Dependencies
-    #       run: dotnet restore MAUIAction/MAUIAction/MAUIAction.csproj
-
-    #     - name: Build MAUI Windows
-    #       run: msbuild MAUIAction/MAUIAction/MAUIAction.csproj -r -p:Configuration=Release -p:RestorePackages=false -p:TargetFramework=net7.0-windows10.0.19041 /p:GenerateAppxPackageOnBuild=true
-
-    #     - name: Upload Windows Artifact
-    #       uses: actions/upload-artifact@v2.3.1
-    #       with:
-    #         name: windows-ci-build
-    #         path: MAUIAction/MAUIAction/bin/Release/net7.0-windows*/**/MAUIAction*.msix
-
-    # MAUI iOS Build
-  # build-ios:
-  #   runs-on: macos-13
-  #   name: iOS Build
+  # MAUI Windows Build
+  # build-windows:
+  #   runs-on: windows-2022
+  #   name: Windows Build
   #   steps:
   #     - name: Checkout
   #       uses: actions/checkout@v2
@@ -104,22 +69,82 @@ jobs:
   #         dotnet-version: 7.0.x
   #         include-prerelease: true
 
+  #     - name: Setup MSBuild
+  #       uses: microsoft/setup-msbuild@v1.1
+  #       with:
+  #         vs-prerelease: true
+
   #     - name: Install MAUI Workloads
   #       run: |
-  #         dotnet workload install ios --ignore-failed-sources
   #         dotnet workload install maui --ignore-failed-sources
 
   #     - name: Restore Dependencies
   #       run: dotnet restore MAUIAction/MAUIAction/MAUIAction.csproj
 
-  #     - name: Build MAUI iOS
-  #       run: dotnet build MAUIAction/MAUIAction/MAUIAction.csproj -c Release -f net7.0-ios --no-restore
+  #     - name: Build MAUI Windows
+  #       run: msbuild MAUIAction/MAUIAction/MAUIAction.csproj -r -p:Configuration=Release -p:RestorePackages=false -p:TargetFramework=net7.0-windows10.0.19041 /p:GenerateAppxPackageOnBuild=true
 
-  #     - name: Upload iOS Artifact
+  #     - name: Upload Windows Artifact
   #       uses: actions/upload-artifact@v2.3.1
   #       with:
-  #         name: ios-ci-build
-  #         path: MAUIAction/MAUIAction/bin/Release/net7.0-ios/**/*.app/
+  #         name: windows-ci-build
+  #         path: MAUIAction/MAUIAction/bin/Release/net7.0-windows*/**/MAUIAction*.msix
+
+  # MAUI iOS Build
+  build-ios:
+    runs-on: macos-latest
+    name: iOS Build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup iOS Certificates
+        uses: apple-actions/import-codesign-certs@v1
+        with:
+          p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
+          p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
+          keychain: github-actions-xamarin
+          keychain-password: ""
+      - name: Setup iOS Provisioning Profiles
+        uses: apple-actions/download-provisioning-profiles@v1
+        with:
+          bundle-id: "com.companyname.Back2LearnApp"
+          profile-type: "IOS_APP_ADHOC"
+          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPSTORE_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
+      - name: Set iOS version
+        run: |
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${{ secrets.APP_VERSION }}" ./MAUIAction.iOS/Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${{ github.run_number }}" ./MAUIAction.iOS/Info.plist
+
+      - name: Build iOS
+        run: MSBuild /t:Build /p:Configuration=Release /p:Platform=iPhone /p:BuildIpa=true ./MAUIAction.iOS/MAUIAction.iOS.csproj
+
+      # - name: Upload iOS app to App Center
+      #   run: appcenter distribute release --silent --file ./MAUIAction/MAUIAction.iOS/bin/iPhone/Release/MAUIAction.iOS.ipa --app SByteDev/MAUIAction.Xamarin-iOS --group Collaborators --token ${{ secrets.APP_CENTER_TOKEN }}
+
+      # - name: Setup .NET 7
+      #   uses: actions/setup-dotnet@v1
+      #   with:
+      #     dotnet-version: 7.0.x
+      #     include-prerelease: true
+
+      # - name: Install MAUI Workloads
+      #   run: |
+      #     dotnet workload install ios --ignore-failed-sources
+      #     dotnet workload install maui --ignore-failed-sources
+
+      # - name: Restore Dependencies
+      #   run: dotnet restore MAUIAction/MAUIAction/MAUIAction.csproj
+
+      # - name: Build MAUI iOS
+      #   run: dotnet build MAUIAction/MAUIAction/MAUIAction.csproj -c Release -f net7.0-ios --no-restore
+
+      # - name: Upload iOS Artifact
+      #   uses: actions/upload-artifact@v2.3.1
+      #   with:
+      #     name: ios-ci-build
+      #     path: MAUIAction/MAUIAction/bin/Release/net7.0-ios/**/*.app/
 # # MAUI MacCatalyst Build
 # build-mac:
 #   runs-on: macos-12
