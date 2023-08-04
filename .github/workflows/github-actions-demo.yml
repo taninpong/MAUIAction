@@ -128,7 +128,7 @@ jobs:
 
       - name: build archive
         run: |
-          xcodebuild -scheme "MAUIAction" \
+          xcodebuild -scheme "MAUIAction/MAUIAction" \
           -archivePath $RUNNER_TEMP/MAUIAction.xcarchive \
           -sdk iphoneos \
           -configuration Debug \
