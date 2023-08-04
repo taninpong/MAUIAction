@@ -101,8 +101,8 @@ jobs:
         env:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.CERTIFICATES_P12 }}
           P12_PASSWORD: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
-          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.APPSTORE_KEY_ID }}
-          KEYCHAIN_PASSWORD: ${{ secrets.APPSTORE_PRIVATE_KEY }}
+          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.APPSTORE_KEY_ID_PROVISION }}
+          KEYCHAIN_PASSWORD: ${{ secrets.APPSTORE_KEY_ID }}
         run: |
           # create variables
           CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
