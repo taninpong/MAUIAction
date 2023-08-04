@@ -95,6 +95,10 @@ jobs:
     runs-on: macos-latest
     name: iOS Build
     steps:
+      - name: Import Code-Signing Certificates
+        uses: Apple-Actions/import-codesign-certs@v1
+      - name: .NET MAUI - Apple Provisioning
+        uses: maui-actions/apple-provisioning@2
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Install the Apple certificate and provisioning profile
@@ -133,7 +137,7 @@ jobs:
           -sdk iphoneos \
           -configuration Debug \
           -destination generic/platform=iOS \
-          clean archive          
+          clean archive
       # - name: Build app
   #  steps:
   #     - name: Checkout
@@ -149,57 +153,58 @@ jobs:
   #         CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
   #         PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
   #         KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
-      # - name: Save state
-      #   run: echo "{name}={value}" >> $GITHUB_STATE
-      # - name: Set output
-      #   run: echo "{name}={value}" >> $GITHUB_OUTPUT
-      # - name: Setup iOS Certificates
-      #   env:  
-      #     p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
-      #     p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
-      #     keychain: github-actions-xamarin
-      #     keychain-password: ""
-      # - name: Setup iOS Provisioning Profiles
-      #   uses: apple-actions/download-provisioning-profiles@v1
-      #   with:
-      #     bundle-id: "com.companyname.Back2LearnApp"
-      #     profile-type: "IOS_APP_ADHOC"
-      #     issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
-      #     api-key-id: ${{ secrets.APPSTORE_KEY_ID }}
-      #     api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
-      # - name: Set iOS version
-      #   run: |
-      #     /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${{ secrets.APP_VERSION }}" ./MAUIAction.iOS/Info.plist
-      #     /usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${{ github.run_number }}" ./MAUIAction.iOS/Info.plist
+  # - name: Save state
+  #   run: echo "{name}={value}" >> $GITHUB_STATE
+  # - name: Set output
+  #   run: echo "{name}={value}" >> $GITHUB_OUTPUT
+  # - name: Setup iOS Certificates
+  #   env:
+  #     p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
+  #     p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
+  #     keychain: github-actions-xamarin
+  #     keychain-password: ""
+  # - name: Setup iOS Provisioning Profiles
+  #   uses: apple-actions/download-provisioning-profiles@v1
+  #   with:
+  #     bundle-id: "com.companyname.Back2LearnApp"
+  #     profile-type: "IOS_APP_ADHOC"
+  #     issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+  #     api-key-id: ${{ secrets.APPSTORE_KEY_ID }}
+  #     api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
+  # - name: Set iOS version
+  #   run: |
+  #     /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${{ secrets.APP_VERSION }}" ./MAUIAction.iOS/Info.plist
+  #     /usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${{ github.run_number }}" ./MAUIAction.iOS/Info.plist
 
-      # - name: Build iOS
-      #   run: MSBuild /t:Build /p:Configuration=Release /p:Platform=iPhone /p:BuildIpa=true ./MAUIAction.iOS/MAUIAction.iOS.csproj
+  # - name: Build iOS
+  #   run: MSBuild /t:Build /p:Configuration=Release /p:Platform=iPhone /p:BuildIpa=true ./MAUIAction.iOS/MAUIAction.iOS.csproj
 
-      # - name: Upload iOS app to App Center
-      #   run: appcenter distribute release --silent --file ./MAUIAction/MAUIAction.iOS/bin/iPhone/Release/MAUIAction.iOS.ipa --app SByteDev/MAUIAction.Xamarin-iOS --group Collaborators --token ${{ secrets.APP_CENTER_TOKEN }}
+  # - name: Upload iOS app to App Center
+  #   run: appcenter distribute release --silent --file ./MAUIAction/MAUIAction.iOS/bin/iPhone/Release/MAUIAction.iOS.ipa --app SByteDev/MAUIAction.Xamarin-iOS --group Collaborators --token ${{ secrets.APP_CENTER_TOKEN }}
 
-      # - name: Setup .NET 7
-      #   uses: actions/setup-dotnet@v1
-      #   with:
-      #     dotnet-version: 7.0.x
-      #     include-prerelease: true
+  # - name: Setup .NET 7
+  #   uses: actions/setup-dotnet@v1
+  #   with:
+  #     dotnet-version: 7.0.x
+  #     include-prerelease: true
 
-      # - name: Install MAUI Workloads
-      #   run: |
-      #     dotnet workload install ios --ignore-failed-sources
-      #     dotnet workload install maui --ignore-failed-sources
+  # - name: Install MAUI Workloads
+  #   run: |
+  #     dotnet workload install ios --ignore-failed-sources
+  #     dotnet workload install maui --ignore-failed-sources
 
-      # - name: Restore Dependencies
-      #   run: dotnet restore MAUIAction/MAUIAction/MAUIAction.csproj
+  # - name: Restore Dependencies
+  #   run: dotnet restore MAUIAction/MAUIAction/MAUIAction.csproj
 
-      # - name: Build MAUI iOS
-      #   run: dotnet build MAUIAction/MAUIAction/MAUIAction.csproj -c Release -f net7.0-ios --no-restore
+  # - name: Build MAUI iOS
+  #   run: dotnet build MAUIAction/MAUIAction/MAUIAction.csproj -c Release -f net7.0-ios --no-restore
 
-      # - name: Upload iOS Artifact
-      #   uses: actions/upload-artifact@v2.3.1
-      #   with:
-      #     name: ios-ci-build
-      #     path: MAUIAction/MAUIAction/bin/Release/net7.0-ios/**/*.app/
+  # - name: Upload iOS Artifact
+  #   uses: actions/upload-artifact@v2.3.1
+  #   with:
+  #     name: ios-ci-build
+  #     path: MAUIAction/MAUIAction/bin/Release/net7.0-ios/**/*.app/
+
 # # MAUI MacCatalyst Build
 # build-mac:
 #   runs-on: macos-12
