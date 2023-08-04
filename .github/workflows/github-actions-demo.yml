@@ -123,13 +123,13 @@ jobs:
           # security list-keychain -d user -s $KEYCHAIN_PATH
 
           # apply provisioning profile
-          mkdir -p ~/Library/MAUIAction/Provisioning\ Profiles
-          cp $PP_PATH ~/Library/MAUIAction/Provisioning\ Profiles
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
       - name: build archive
         run: |
           xcodebuild -scheme "MAUIAction" \
-          -archivePath $RUNNER_TEMP/iamgroot.xcarchive \
+          -archivePath $RUNNER_TEMP/MAUIAction.xcarchive \
           -sdk iphoneos \
           -configuration Debug \
           -destination generic/platform=iOS \
