@@ -98,9 +98,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Save state
-        run: echo "::save-state name={name}::{value}"
+        run: echo "{name}={value}" >> $GITHUB_STATE
       - name: Set output
-        run: echo "::set-output name={name}::{value}"
+        run: echo "{name}={value}" >> $GITHUB_OUTPUT
       - name: Setup iOS Certificates
         uses: apple-actions/import-codesign-certs@v1
         with:
