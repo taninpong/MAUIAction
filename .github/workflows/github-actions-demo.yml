@@ -125,10 +125,7 @@ jobs:
           # apply provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
-      - name: Build app
-  
-  
-  
+      # - name: Build app
   #  steps:
   #     - name: Checkout
   #       uses: actions/checkout@v3
