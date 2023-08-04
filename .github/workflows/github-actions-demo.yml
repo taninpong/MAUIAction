@@ -100,7 +100,7 @@ jobs:
       - name: Setup .NET 7
         uses: actions/setup-dotnet@v3
         with:
-         dotnet-version: 7.0.x
+         dotnet-version: 6.0.x
       - name: Install MAUI Workload
         run: dotnet workload install maui --ignore-failed-sources
       - name: Restore Dependencies
@@ -134,7 +134,7 @@ jobs:
           mkdir -p ~/Library/MAUIAction/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MAUIAction/Provisioning\ Profiles
       - name: Build MAUI iOS
-        run: dotnet build MAUIAction/MAUIAction/MAUIAction.csproj -c Release -f net7.0-ios --no-restore /p:buildForSimulator=True /p:packageApp=True /p:ArchiveOnBuild=False
+        run: dotnet build MAUIAction/MAUIAction/MAUIAction.csproj -c Release -f net6.0-ios --no-restore /p:buildForSimulator=True /p:packageApp=True /p:ArchiveOnBuild=False
 
       # - name: Import Code-Signing Certificates
       #   uses: Apple-Actions/import-codesign-certs@v1
