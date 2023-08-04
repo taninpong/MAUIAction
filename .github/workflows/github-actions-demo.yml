@@ -134,9 +134,6 @@ jobs:
           mkdir -p ~/Library/MAUIAction/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MAUIAction/Provisioning\ Profiles
       - name: Build MAUI iOS
-        run: |
-          dir
-      - name: Build MAUI iOS
         run: dotnet build MAUIAction/MAUIAction/MAUIAction.csproj -c Release -f net6.0-ios --no-restore /p:buildForSimulator=True /p:packageApp=True /p:ArchiveOnBuild=False
 
       # - name: Import Code-Signing Certificates
